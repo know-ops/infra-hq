@@ -1,0 +1,10 @@
+spec:
+  project: tools-infra
+  source:
+    repoURL: git@github.com:know-ops/infra-hq.git
+    targetRevision: HEAD
+  destination:
+    server: https://kubernetes.default.svc
+
+certManager:
+  targetRevision: v0.15.2

@@ -1,0 +1,31 @@
+ 
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cert-manager
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/name: {{ .Chart.Name }}-cert-manager
+    helm.sh/chart: {{ .Chart.Version | quote }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/part-of: {{ .Release.Name }}
+    app.kubernetes.io/component: cert-manager
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: cert-manager
+    server: {{ .Values.spec.destination.server }}
+  project: {{ .Values.spec.project }}
+  source:
+    repoURL: 'https://charts.jetstack.io'
+    targetRevision: {{ .Values.certManager.targetRevision }}
+    helm:
+      parameters:
+        - name: global.leaderElection.namespace
+          value: cert-manager
+    chart: cert-manager
+  syncPolicy:
+    automated: 
+      selfHeal: true
