@@ -1,0 +1,10 @@
+spec:
+  project: tools-cd
+  source:
+    repoURL: git@github.com:know-ops/infra-hq.git
+    targetRevision: HEAD
+  destination:
+    server: https://kubernetes.default.svc
+
+argocd:
+  targetRevision: 2.5.4
