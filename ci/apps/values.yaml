@@ -1,0 +1,10 @@
+spec:
+  project: tools-ci
+  source:
+    repoURL: git@github.com:know-ops/infra-hq.git
+    targetRevision: HEAD
+  destination:
+    server: https://kubernetes.default.svc
+
+jenkins:
+  targetRevision: 1.7.0

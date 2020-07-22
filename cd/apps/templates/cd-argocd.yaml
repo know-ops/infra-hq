@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: ArgoCD
     app.kubernetes.io/part-of: {{ .Release.Name }}
-    app.kubernetes.io/component: cert-manager
+    app.kubernetes.io/component: argo-cd
   finalizers:
   - resources-finalizer.argocd.argoproj.io
 spec:
@@ -129,6 +129,7 @@ spec:
             description: CI Tools
             sourceRepos:
             - git@github.com:know-ops/infra-hq.git
+            - https://codecentric.github.io/helm-charts
             destinations:
             - namespace: tools
               server: https://kubernetes.default.svc
@@ -158,6 +159,19 @@ spec:
             roles: []
 
           additionalApplications:
+          - name: infra-apps
+            project: tools-infra
+            source:
+              path: infra/apps
+              repoURL: git@github.com:know-ops/infra-hq.git
+              targetRevision: feature/initial_version
+            destination:
+              namespace: tools
+              server: https://kubernetes.default.svc
+            syncPolicy:
+              automated:
+                selfHeal: true
+
           - name: cd-apps
             project: tools-cd
             source:
@@ -171,10 +185,10 @@ spec:
               automated:
                 selfHeal: true
 
-          - name: infra-apps
-            project: tools-infra
+          - name: ci-apps
+            project: tools-ci
             source:
-              path: infra/apps
+              path: ci/apps
               repoURL: git@github.com:know-ops/infra-hq.git
               targetRevision: feature/initial_version
             destination:
