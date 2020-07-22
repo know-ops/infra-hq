@@ -538,3 +538,8 @@ spec:
   syncPolicy:
     automated: 
       selfHeal: true
+  ignoreDifferences:
+  - group: apps
+    kind: Deployment
+    jsonPointers:
+    - /spec/revisionHistoryLimit
