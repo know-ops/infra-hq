@@ -71,6 +71,11 @@ spec:
             create: true
             name: jenkins-agent
 
+        casc:
+          existingSecret: jenkins-casc
+          secrets:
+            GITHUB_SECRET: ""
+
         rbac:
           master:
             create: true
@@ -245,7 +250,7 @@ spec:
                               numToKeepStr: "10"
                     location:
                       adminAddress: "Tools Engineering <tools@know-ops.com>"
-                      url: "https://hq.know-ops.com/tools/ci/jenkins/"
+                      url: "https://hq.know-ops.com/tools/ci/jenkins"
                     timestamperConfig:
                       systemTimeFormat: "'<b>'yyyy-MM-dd HH:mm:ss.SSS'</b> '"
                       elapsedTimeFormat: "'<b>'HH:mm:ss.S'</b> '"
