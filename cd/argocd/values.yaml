@@ -1,0 +1,182 @@
+argocd:
+  fullnameOverride: cd-argocd
+  installCRDs: false
+
+  server:
+    extraArgs:
+    - --rootpath
+    - /tools/cd/argocd
+    - --basehref
+    - /tools/cd/argocd
+
+    ingress:
+      enabled: true
+
+      annotations:
+        kubernetes.io/ingress.class: nginx
+        kubernetes.io/tls-acme: "true"
+        nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+        nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+
+      hosts:
+      - hq.know-ops.com
+
+      tls:
+      - hosts:
+        - hq.know-ops.com
+        secretName: argocd-secret
+
+      paths:
+      - /tools/cd/argocd
+
+      https: true
+
+    certificate:
+      enabled: true
+      domain: hq.know-ops.com
+      issuer:
+        kind: ClusterIssuer
+        name: letsencrypt-prod
+
+    config:
+      url: https://hq.know-ops.com/tools/cd/argocd
+
+      admin.enabled: "false"
+
+      users.anonymous.enabled: "true"
+
+      dex.config: |
+        connectors:
+          # GitHub example
+          - type: github
+            id: github
+            name: GitHub
+            config:
+              clientID: 37f595427919977080dd
+              clientSecret: $dex.github.clientSecret
+              orgs:
+              - name: know-ops
+
+      repositories: |
+        - url: git@github.com:know-ops/infra-hq.git
+          sshPrivateKeySecret:
+            name: argocd-repository-credentials
+            key: infra-hq
+          name: infra-hq
+        - type: helm
+          url: https://kubernetes-charts.storage.googleapis.com
+          name: stable
+        - type: helm
+          url: https://argoproj.github.io/argo-helm
+          name: argo
+        - type: helm
+          url: https://codecentric.github.io/helm-charts
+          name: codecentric
+        - type: helm
+          url: https://charts.jetstack.io
+          name: jetstack
+
+    rbacConfig:
+      policy.default: 'role:readonly'
+      policy.csv: |
+        g, know-ops:admin, role:admin
+      scopes: '[groups]'
+
+    additionalProjects: 
+    - name: tools-cd
+      namespace: tools
+      additionalLabels: {}
+      additionalAnnotations: {}
+      description: CD Tools
+      sourceRepos:
+      - git@github.com:know-ops/infra-hq.git
+      - https://argoproj.github.io/argo-helm
+      destinations:
+      - namespace: tools
+        server: https://kubernetes.default.svc
+      clusterResourceWhitelist:
+      - group: '*'
+        kind: '*'
+      orphanedResources: {}
+      roles: []
+
+    - name: tools-ci
+      namespace: tools
+      additionalLabels: {}
+      additionalAnnotations: {}
+      description: CI Tools
+      sourceRepos:
+      - git@github.com:know-ops/infra-hq.git
+      - https://codecentric.github.io/helm-charts
+      destinations:
+      - namespace: tools
+        server: https://kubernetes.default.svc
+      clusterResourceWhitelist:
+      - group: '*'
+        kind: '*'
+      orphanedResources: {}
+      roles: []
+
+    - name: tools-infra
+      namespace: tools
+      additionalLabels: {}
+      additionalAnnotations: {}
+      description: Infrastructure Tools
+      sourceRepos:
+      - git@github.com:know-ops/infra-hq.git
+      - https://charts.jetstack.io
+      destinations:
+      - namespace: tools
+        server: https://kubernetes.default.svc
+      - namespace: cert-manager
+        server: https://kubernetes.default.svc
+      clusterResourceWhitelist:
+      - group: '*'
+        kind: '*'
+      orphanedResources: {}
+      roles: []
+
+    additionalApplications:
+    - name: cd-argocd
+      project: tools-cd
+      source:
+        path: cd/argocd
+        repoURL: git@github.com:know-ops/infra-hq.git
+        targetRevision: feature/initial_version
+      destination:
+        namespace: tools
+        server: https://kubernetes.default.svc
+      syncPolicy:
+        automated:
+          selfHeal: true
+
+    - name: infra-apps
+      project: tools-infra
+      source:
+        path: infra/apps
+        repoURL: git@github.com:know-ops/infra-hq.git
+        targetRevision: feature/initial_version
+      destination:
+        namespace: tools
+        server: https://kubernetes.default.svc
+      syncPolicy:
+        automated:
+          selfHeal: true
+
+    - name: ci-apps
+      project: tools-ci
+      source:
+        path: ci/apps
+        repoURL: git@github.com:know-ops/infra-hq.git
+        targetRevision: feature/initial_version
+      destination:
+        namespace: tools
+        server: https://kubernetes.default.svc
+      syncPolicy:
+        automated:
+          selfHeal: true
+
+  configs:
+    secret:
+      # Enable only on initial deployment
+      createSecret: false

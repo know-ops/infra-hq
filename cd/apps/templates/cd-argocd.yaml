@@ -159,10 +159,10 @@ spec:
             roles: []
 
           additionalApplications:
-          - name: infra-apps
-            project: tools-infra
+          - name: cd-argocd
+            project: tools-cd
             source:
-              path: infra/apps
+              path: cd/argocd
               repoURL: git@github.com:know-ops/infra-hq.git
               targetRevision: feature/initial_version
             destination:
@@ -172,10 +172,10 @@ spec:
               automated:
                 selfHeal: true
 
-          - name: cd-apps
-            project: tools-cd
+          - name: infra-apps
+            project: tools-infra
             source:
-              path: cd/apps
+              path: infra/apps
               repoURL: git@github.com:know-ops/infra-hq.git
               targetRevision: feature/initial_version
             destination:
