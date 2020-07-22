@@ -58,7 +58,7 @@ spec:
             domain: hq.know-ops.com
             issuer:
               kind: ClusterIssuer
-              name: letsencrypt-staging
+              name: letsencrypt-prod
 
           config:
             url: https://hq.know-ops.com/tools/cd/argocd
