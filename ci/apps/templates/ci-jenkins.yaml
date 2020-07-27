@@ -496,7 +496,7 @@ spec:
 
                           traits << 'jenkins.scm.impl.trait.WildcardSCMHeadFilterTrait' {
 
-                            includes "bugfix/* hotfix/* feature/*"
+                            includes "master bugfix/* hotfix/* feature/* release/*"
                             excludes ""
 
                           }
