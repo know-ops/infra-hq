@@ -422,10 +422,20 @@ spec:
                           apiUri("https://api.github.com")
                           credentialsId('jenkins-github-user-token')
                           traits {
-
+                            gitHubBranchDiscovery {
+                              strategyId(1)
+                            }
+                            gitHubPullRequestDiscovery {
+                              strategyId(1)
+                            }
                             publicRepoPullRequestFilterTrait()
+                            headWildcardFilter {
+                              includes 'master bugfix/* hotfix/* feature/* release/*'
+                              excludes ''
+                            }
 
                           }
+
 
                         }
 
@@ -475,12 +485,6 @@ spec:
 
                           def traits = it / navigators / 'org.jenkinsci.plugins.github__branch__source.GitHubSCMNavigator' / traits
 
-                          traits << 'org.jenkinsci.plugins.github_branch_source.BranchDiscoveryTrait' {
-
-                              strategyId 1
-
-                          }
-
                           traits << 'org.jenkinsci.plugins.github_branch_source.ForkPullRequestDiscoveryTrait' {
 
                               strategyId 1
@@ -488,18 +492,7 @@ spec:
 
                           }
 
-                          traits << 'org.jenkinsci.plugins.github__branch__source.OriginPullRequestDiscoveryTrait' {
-
-                              strategyId 1
-
-                          }
-
-                          traits << 'jenkins.scm.impl.trait.WildcardSCMHeadFilterTrait' {
-
-                            includes "master bugfix/* hotfix/* feature/* release/*"
-                            excludes ""
-
-                          }
+                          traits << 'jenkins.plugins.git.traits.LocalBranchTrait' {}
 
                       }
 
