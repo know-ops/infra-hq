@@ -147,6 +147,17 @@ spec:
                         jenkinsUrl: http://ci-jenkins-master:8080/tools/ci/jenkins
                         jenkinsTunnel: ci-jenkins-agent:50000
                         templates:
+                          - name: k8s-docker-agent
+                            idleMinutes: 1
+                            namespace: {{ .Release.Namespace }}
+                            serviceAccount: jenkins-agent
+                            label: k8s-docker-agent
+                            containers:
+                              - name: docker
+                                image: julienlecomte/docker-make
+                                ttyEnabled: true
+                                args: "cat"
+                                command: "/bin/sh -c"
                           - name: k8s-gradle-jdk8-agent
                             idleMinutes: 1
                             namespace: {{ .Release.Namespace }}
