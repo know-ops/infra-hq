@@ -248,6 +248,9 @@ spec:
                     authenticators:
                     - global:
                         strategy: "triggeringUsersAuthorizationStrategy"
+                  scriptApproval:
+                    approvedSignatures:
+                    - staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods putAt java.lang.Object java.lang.String java.lang.Object
                 unclassified:
                   buildDiscarders:
                     configuredBuildDiscarders:
