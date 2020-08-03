@@ -449,7 +449,7 @@ spec:
                             }
                             publicRepoPullRequestFilterTrait()
                             headWildcardFilter {
-                              includes 'master bugfix/* hotfix/* feature/* release/*'
+                              includes 'master'
                               excludes ''
                             }
 
