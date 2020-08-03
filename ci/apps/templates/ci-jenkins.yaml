@@ -158,6 +158,11 @@ spec:
                                 ttyEnabled: true
                                 args: "cat"
                                 command: "/bin/sh -c"
+                              - name: github
+                                image: widerplan/github-hub
+                                ttyEnabled: true
+                                args: "cat"
+                                command: "/bin/sh -c"
                           - name: k8s-gradle-jdk8-agent
                             idleMinutes: 1
                             namespace: {{ .Release.Namespace }}
