@@ -384,20 +384,20 @@ spec:
 
                           traits << 'org.jenkinsci.plugins.github_branch_source.BranchDiscoveryTrait' {
 
-                              strategyId 1
+                            strategyId 1
 
                           }
 
                           traits << 'org.jenkinsci.plugins.github_branch_source.ForkPullRequestDiscoveryTrait' {
 
-                              strategyId 1
-                              trust(class: 'org.jenkinsci.plugins.github_branch_source.ForkPullRequestDiscoveryTrait$TrustPermission')
+                            strategyId 1
+                            trust(class: 'org.jenkinsci.plugins.github_branch_source.ForkPullRequestDiscoveryTrait$TrustPermission')
 
                           }
 
                           traits << 'org.jenkinsci.plugins.github__branch__source.OriginPullRequestDiscoveryTrait' {
 
-                              strategyId 1
+                            strategyId 1
 
                           }
 
@@ -506,12 +506,22 @@ spec:
 
                           traits << 'org.jenkinsci.plugins.github_branch_source.ForkPullRequestDiscoveryTrait' {
 
-                              strategyId 1
-                              trust(class: 'org.jenkinsci.plugins.github_branch_source.ForkPullRequestDiscoveryTrait$TrustPermission')
+                            strategyId 1
+                            trust(class: 'org.jenkinsci.plugins.github_branch_source.ForkPullRequestDiscoveryTrait$TrustPermission')
 
                           }
 
                           traits << 'jenkins.plugins.git.traits.LocalBranchTrait' {}
+
+                          traits << 'jenkins.plugins.git.traits.CloneOptionTrait' {
+                            extension(class: 'hudson.plugins.git.extensions.impl.CloneOption') {
+                              shallow(false)
+                              noTag(false)
+                              reference()
+                              depth(0)
+                              honorRefspec(false)
+                            }
+                          }
 
                       }
 
