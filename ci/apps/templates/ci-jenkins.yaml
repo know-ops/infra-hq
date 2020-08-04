@@ -24,7 +24,7 @@ spec:
         fullnameOverride: ci-jenkins
 
         image:
-          tag: 2.245-alpine
+          tag: 2.250-alpine
 
         extraEnv: |
           - name: JENKINS_OPTS
