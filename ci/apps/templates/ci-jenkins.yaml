@@ -112,6 +112,7 @@ spec:
                 authorize-project
                 greenballs
                 scm-filter-branch-pr
+                pipeline-github
 
             - fileName: jenkins.yaml
               fileContent: |
