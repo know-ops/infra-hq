@@ -111,6 +111,7 @@ spec:
                 blueocean
                 authorize-project
                 greenballs
+                scm-filter-branch-pr
 
             - fileName: jenkins.yaml
               fileContent: |
