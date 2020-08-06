@@ -113,6 +113,7 @@ spec:
                 greenballs
                 scm-filter-branch-pr
                 pipeline-github
+                generic-webhook-trigger
 
             - fileName: jenkins.yaml
               fileContent: |
@@ -450,10 +451,6 @@ spec:
                               strategyId(1)
                             }
                             publicRepoPullRequestFilterTrait()
-                            headWildcardFilter {
-                              includes 'master'
-                              excludes ''
-                            }
 
                           }
 
@@ -511,6 +508,12 @@ spec:
                             strategyId 1
                             trust(class: 'org.jenkinsci.plugins.github_branch_source.ForkPullRequestDiscoveryTrait$TrustPermission')
 
+                          }
+
+                          traits << 'net.gleske.scmfilter.impl.trait.WildcardSCMHeadFilterTrait' {
+                            includes('master')
+                            tagIncludes('v.*')
+                            tagExcludes('v0.0.0')
                           }
 
                           traits << 'jenkins.plugins.git.traits.LocalBranchTrait' {}
