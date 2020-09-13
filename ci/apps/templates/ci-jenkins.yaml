@@ -24,7 +24,7 @@ spec:
         fullnameOverride: ci-jenkins
 
         image:
-          tag: 2.250-alpine
+          tag: {{ .Values.jenkins.image.tag }}
 
         extraEnv: |
           - name: JENKINS_OPTS
@@ -161,11 +161,23 @@ spec:
                                 ttyEnabled: true
                                 args: "cat"
                                 command: "/bin/sh -c"
+                                envVars:
+                                  - envVar:
+                                      key: "DOCKER_HOST"
+                                      value: "tcp://localhost:2375"
                               - name: github
                                 image: widerplan/github-hub
                                 ttyEnabled: true
                                 args: "cat"
                                 command: "/bin/sh -c"
+                              - name: dind
+                                image: docker:dind
+                                ttyEnabled: true
+                                privileged: true
+                                envVars:
+                                  - envVar:
+                                      key: "DOCKER_TLS_CERTDIR"
+                                      value: ""
                           - name: k8s-gradle-jdk8-agent
                             idleMinutes: 1
                             namespace: {{ .Release.Namespace }}
@@ -235,6 +247,18 @@ spec:
                             containers:
                               - name: openjdk
                                 image: openjdk:14-alpine
+                                ttyEnabled: true
+                                args: "cat"
+                                command: "/bin/sh -c"
+                          - name: k8s-node14-agent
+                            idleMinutes: 1
+                            namespace: {{ .Release.Namespace }}
+                            nodeUsageMode: NORMAL
+                            serviceAccount: jenkins-agent
+                            label: k8s-node14-agent
+                            containers:
+                              - name: node
+                                image: node:14-alpine
                                 ttyEnabled: true
                                 args: "cat"
                                 command: "/bin/sh -c"

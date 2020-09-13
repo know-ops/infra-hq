@@ -63,6 +63,16 @@ argocd:
             name: argocd-repository-credentials
             key: infra-hq
           name: infra-hq
+        - url: git@github.com:know-ops/microsoft-teams-sample-complete-node.git
+          sshPrivateKeySecret:
+            name: argocd-repository-credentials
+            key: infra-hq
+          name: demo-teams-bot
+        - url: git@github.com:know-ops/demo-teams-webhook.git
+          sshPrivateKeySecret:
+            name: argocd-repository-credentials
+            key: infra-hq
+          name: demo-teams-webhook
         - type: helm
           url: https://kubernetes-charts.storage.googleapis.com
           name: stable
@@ -93,6 +103,23 @@ argocd:
       - https://argoproj.github.io/argo-helm
       destinations:
       - namespace: tools
+        server: https://kubernetes.default.svc
+      clusterResourceWhitelist:
+      - group: '*'
+        kind: '*'
+      orphanedResources: {}
+      roles: []
+
+    - name: demos
+      namespace: tools
+      additionalLabels: {}
+      additionalAnnotations: {}
+      description: Demo Project
+      sourceRepos:
+      - git@github.com:know-ops/microsoft-teams-sample-complete-node.git
+      - git@github.com:know-ops/demo-teams-webhook.git
+      destinations:
+      - namespace: demos
         server: https://kubernetes.default.svc
       clusterResourceWhitelist:
       - group: '*'
