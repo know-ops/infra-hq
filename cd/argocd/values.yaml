@@ -137,18 +137,18 @@ argocd:
       roles: []
 
     additionalApplications:
-    - name: cd-argocd
-      project: tools-cd
-      source:
-        path: cd/argocd
-        repoURL: git@github.com:know-ops/infra-hq.git
-        targetRevision: feature/initial_version
-      destination:
-        namespace: tools
-        server: https://kubernetes.default.svc
-      syncPolicy:
-        automated:
-          selfHeal: true
+    # - name: cd-argocd
+    #   project: tools-cd
+    #   source:
+    #     path: cd/argocd
+    #     repoURL: git@github.com:know-ops/infra-hq.git
+    #     targetRevision: feature/initial_version
+    #   destination:
+    #     namespace: tools
+    #     server: https://kubernetes.default.svc
+    #   syncPolicy:
+    #     automated:
+    #       selfHeal: true
 
     - name: infra-apps
       project: tools-infra
