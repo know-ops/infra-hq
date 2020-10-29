@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: demo-teams-webhook
+  namespace: tools
+spec:
+  destination:
+    namespace: demos
+    server: https://kubernetes.default.svc
+  project: demos
+  source:
+    helm:
+      parameters:
+      - name: image.tag
+        value: "6"
+    path: charts/bot
+    repoURL: git@github.com:know-ops/demo-teams-webhook.git
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      selfHeal: true
+ 

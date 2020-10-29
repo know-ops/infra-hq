@@ -69,7 +69,7 @@ spec:
 
           k8s-agent:
             create: true
-            name: jenkins-agent
+            name: ci-jenkins-k8s-agent
 
         casc:
           existingSecret: jenkins-casc
@@ -153,7 +153,7 @@ spec:
                           - name: k8s-docker-agent
                             idleMinutes: 1
                             namespace: {{ .Release.Namespace }}
-                            serviceAccount: jenkins-agent
+                            serviceAccount: ci-jenkins-k8s-agent
                             label: k8s-docker-agent
                             containers:
                               - name: docker
@@ -182,7 +182,7 @@ spec:
                             idleMinutes: 1
                             namespace: {{ .Release.Namespace }}
                             nodeUsageMode: NORMAL
-                            serviceAccount: jenkins-agent
+                            serviceAccount: ci-jenkins-k8s-agent
                             label: k8s-gradle-jdk8-agent
                             containers:
                               - name: gradle
@@ -194,7 +194,7 @@ spec:
                             idleMinutes: 1
                             namespace: {{ .Release.Namespace }}
                             nodeUsageMode: NORMAL
-                            serviceAccount: jenkins-agent
+                            serviceAccount: ci-jenkins-k8s-agent
                             label: k8s-gradle-jdk11-agent
                             containers:
                               - name: gradle
@@ -206,7 +206,7 @@ spec:
                             idleMinutes: 1
                             namespace: {{ .Release.Namespace }}
                             nodeUsageMode: NORMAL
-                            serviceAccount: jenkins-agent
+                            serviceAccount: ci-jenkins-k8s-agent
                             label: k8s-gradle-jdk14-agent
                             containers:
                               - name: gradle
@@ -218,7 +218,7 @@ spec:
                             idleMinutes: 1
                             namespace: {{ .Release.Namespace }}
                             nodeUsageMode: NORMAL
-                            serviceAccount: jenkins-agent
+                            serviceAccount: ci-jenkins-k8s-agent
                             label: k8s-openjdk8-agent
                             containers:
                               - name: openjdk
@@ -230,7 +230,7 @@ spec:
                             idleMinutes: 1
                             namespace: {{ .Release.Namespace }}
                             nodeUsageMode: NORMAL
-                            serviceAccount: jenkins-agent
+                            serviceAccount: ci-jenkins-k8s-agent
                             label: k8s-openjdk11-agent
                             containers:
                               - name: openjdk
@@ -242,7 +242,7 @@ spec:
                             idleMinutes: 1
                             namespace: {{ .Release.Namespace }}
                             nodeUsageMode: NORMAL
-                            serviceAccount: jenkins-agent
+                            serviceAccount: ci-jenkins-k8s-agent
                             label: k8s-openjdk14-agent
                             containers:
                               - name: openjdk
@@ -254,7 +254,7 @@ spec:
                             idleMinutes: 1
                             namespace: {{ .Release.Namespace }}
                             nodeUsageMode: NORMAL
-                            serviceAccount: jenkins-agent
+                            serviceAccount: ci-jenkins-k8s-agent
                             label: k8s-node14-agent
                             containers:
                               - name: node
@@ -266,11 +266,23 @@ spec:
                             idleMinutes: 1
                             namespace: {{ .Release.Namespace }}
                             nodeUsageMode: NORMAL
-                            serviceAccount: jenkins-agent
+                            serviceAccount: ci-jenkins-k8s-agent
                             label: k8s-project-agent
                             containers:
                               - name: linguist
                                 image: crazymax/linguist:7.9.0
+                                ttyEnabled: true
+                                args: "cat"
+                                command: "/bin/sh -c"
+                          - name: k8s-kubectl
+                            idleMinutes: 1
+                            namespace: {{ .Release.Namespace }}
+                            nodeUsageMode: NORMAL
+                            serviceAccount: ci-jenkins-k8s-agent
+                            label: k8s-kubectl
+                            containers:
+                              - name: kubectl
+                                image: lachlanevenson/k8s-kubectl:v1.19.3
                                 ttyEnabled: true
                                 args: "cat"
                                 command: "/bin/sh -c"

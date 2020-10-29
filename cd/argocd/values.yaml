@@ -118,8 +118,11 @@ argocd:
       sourceRepos:
       - git@github.com:know-ops/microsoft-teams-sample-complete-node.git
       - git@github.com:know-ops/demo-teams-webhook.git
+      - git@github.com:know-ops/infra-hq.git
       destinations:
       - namespace: demos
+        server: https://kubernetes.default.svc
+      - namespace: tools
         server: https://kubernetes.default.svc
       clusterResourceWhitelist:
       - group: '*'
