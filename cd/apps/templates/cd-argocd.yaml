@@ -46,12 +46,12 @@ spec:
             tls:
             - hosts:
               - hq.know-ops.com
-              secretName: argocd-secret
+              secretName: argocd-server-tls
 
             paths:
             - /tools/cd/argocd
 
-            https: true
+            https: false
 
           certificate:
             enabled: true
@@ -86,9 +86,6 @@ spec:
                   key: infra-hq
                 name: infra-hq
               - type: helm
-                url: https://kubernetes-charts.storage.googleapis.com
-                name: stable
-              - type: helm
                 url: https://argoproj.github.io/argo-helm
                 name: argo
               - type: helm
@@ -104,112 +101,12 @@ spec:
               g, know-ops:admin, role:admin
             scopes: '[groups]'
 
-          additionalProjects: 
-          - name: tools-cd
-            namespace: tools
-            additionalLabels: {}
-            additionalAnnotations: {}
-            description: CD Tools
-            sourceRepos:
-            - git@github.com:know-ops/infra-hq.git
-            - https://argoproj.github.io/argo-helm
-            destinations:
-            - namespace: tools
-              server: https://kubernetes.default.svc
-            clusterResourceWhitelist:
-            - group: '*'
-              kind: '*'
-            orphanedResources: {}
-            roles: []
-
-          - name: tools-ci
-            namespace: tools
-            additionalLabels: {}
-            additionalAnnotations: {}
-            description: CI Tools
-            sourceRepos:
-            - git@github.com:know-ops/infra-hq.git
-            - https://codecentric.github.io/helm-charts
-            destinations:
-            - namespace: tools
-              server: https://kubernetes.default.svc
-            clusterResourceWhitelist:
-            - group: '*'
-              kind: '*'
-            orphanedResources: {}
-            roles: []
-
-          - name: tools-infra
-            namespace: tools
-            additionalLabels: {}
-            additionalAnnotations: {}
-            description: Infrastructure Tools
-            sourceRepos:
-            - git@github.com:know-ops/infra-hq.git
-            - https://charts.jetstack.io
-            destinations:
-            - namespace: tools
-              server: https://kubernetes.default.svc
-            - namespace: cert-manager
-              server: https://kubernetes.default.svc
-            clusterResourceWhitelist:
-            - group: '*'
-              kind: '*'
-            orphanedResources: {}
-            roles: []
-
-          additionalApplications:
-          - name: cd-argocd
-            project: tools-cd
-            source:
-              path: cd/argocd
-              repoURL: git@github.com:know-ops/infra-hq.git
-              targetRevision: feature/initial_version
-            destination:
-              namespace: tools
-              server: https://kubernetes.default.svc
-            syncPolicy:
-              automated:
-                selfHeal: true
-
-          - name: infra-apps
-            project: tools-infra
-            source:
-              path: infra/apps
-              repoURL: git@github.com:know-ops/infra-hq.git
-              targetRevision: feature/initial_version
-            destination:
-              namespace: tools
-              server: https://kubernetes.default.svc
-            syncPolicy:
-              automated:
-                selfHeal: true
-
-          - name: ci-apps
-            project: tools-ci
-            source:
-              path: ci/apps
-              repoURL: git@github.com:know-ops/infra-hq.git
-              targetRevision: feature/initial_version
-            destination:
-              namespace: tools
-              server: https://kubernetes.default.svc
-            syncPolicy:
-              automated:
-                selfHeal: true
-
         configs:
           secret:
             # Enable only on initial deployment
             createSecret: false
+
   project: {{ .Values.spec.project }}
   syncPolicy:
     automated: 
       selfHeal: true
-  ignoreDifferences:
-  - group: argoproj.io/v1alpha1
-    kind: Application
-    name: cd-apps
-    namespace: tools
-    jsonPointers:
-    - /
