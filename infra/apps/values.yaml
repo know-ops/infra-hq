@@ -7,4 +7,4 @@ spec:
     server: https://kubernetes.default.svc
 
 certManager:
-  targetRevision: v1.0.1
+  targetRevision: v1.11.0
