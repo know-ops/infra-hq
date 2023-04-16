@@ -39,6 +39,22 @@ spec:
           orphanedResources: {}
           roles: []
 
+        - name: cd-argocd
+          namespace: tools
+          additionalLabels: {}
+          additionalAnnotations: {}
+          description: ArgoCD specific Objects
+          sourceRepos:
+          - https://argoproj.github.io/argo-helm
+          destinations:
+          - namespace: tools
+            server: https://kubernetes.default.svc
+          namespaceResourceWhitelist:
+          - group: 'argoproj.io'
+            kind: '*'
+          orphanedResources: {}
+          roles: []
+
         - name: tools-ci
           namespace: tools
           additionalLabels: {}
