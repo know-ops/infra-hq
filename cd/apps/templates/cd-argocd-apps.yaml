@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cd-argocd-apps
+  name: cd-argocd-objects
   labels:
     app.kubernetes.io/name: {{ .Chart.Name }}-argo-cd
     helm.sh/chart: {{ .Chart.Version | quote }}
@@ -118,7 +118,7 @@ spec:
             automated:
               selfHeal: true
 
-  project: {{ .Values.spec.project }}
+  project: cd-argocd
   syncPolicy:
     automated: 
       selfHeal: true
