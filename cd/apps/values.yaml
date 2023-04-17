@@ -1,5 +1,5 @@
 spec:
-  project: tools-cd
+  project: svc-tools
   source:
     repoURL: git@github.com:know-ops/infra-hq.git
     targetRevision: HEAD

@@ -22,11 +22,11 @@ spec:
     helm:
       values: |
         projects: 
-        - name: tools-cd
+        - name: svc-tools
           namespace: tools
           additionalLabels: {}
           additionalAnnotations: {}
-          description: CD Tools
+          description: Tool Services, i.e. CD, CI, Git, etc.
           sourceRepos:
           - git@github.com:know-ops/infra-hq.git
           - https://argoproj.github.io/argo-helm
@@ -55,28 +55,11 @@ spec:
           orphanedResources: {}
           roles: []
 
-        - name: tools-ci
+        - name: svc-infra
           namespace: tools
           additionalLabels: {}
           additionalAnnotations: {}
-          description: CI Tools
-          sourceRepos:
-          - git@github.com:know-ops/infra-hq.git
-          - https://codecentric.github.io/helm-charts
-          destinations:
-          - namespace: tools
-            server: https://kubernetes.default.svc
-          clusterResourceWhitelist:
-          - group: '*'
-            kind: '*'
-          orphanedResources: {}
-          roles: []
-
-        - name: tools-infra
-          namespace: tools
-          additionalLabels: {}
-          additionalAnnotations: {}
-          description: Infrastructure Tools
+          description: Infrastructure Services, i.e. cert-manager, etc.
           sourceRepos:
           - git@github.com:know-ops/infra-hq.git
           - https://charts.jetstack.io
@@ -93,7 +76,7 @@ spec:
 
         applications:
         - name: cd-apps
-          project: tools-cd
+          project: svc-tools
           source:
             path: cd/apps
             repoURL: git@github.com:know-ops/infra-hq.git
@@ -104,9 +87,10 @@ spec:
           syncPolicy:
             automated:
               selfHeal: true
+              prune: true
 
         - name: infra-apps
-          project: tools-infra
+          project: svc-infra
           source:
             path: infra/apps
             repoURL: git@github.com:know-ops/infra-hq.git
@@ -117,11 +101,16 @@ spec:
           syncPolicy:
             automated:
               selfHeal: true
+              prune: true
 
   project: cd-argocd
   syncPolicy:
     automated: 
       selfHeal: true
+      prune: true
+    syncOptions:
+      - RespectIgnoreDifferences=true
+      - PruneLast=true
   ignoreDifferences:
   - group: argoproj.io/v1alpha1
     kind: Application
