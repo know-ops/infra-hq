@@ -96,7 +96,7 @@ spec:
                 name: jetstack
               - type: helm
                 url: https://charts.gitlab.io
-                name: gitlabs
+                name: gitlab
 
           rbacConfig:
             policy.default: 'role:readonly'
