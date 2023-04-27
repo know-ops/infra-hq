@@ -10,4 +10,4 @@ argocd:
   targetRevision: 5.29.1
 
 argocdapps:
-  targetRevision: 0.0.9
+  targetRevision: 1.0.0
