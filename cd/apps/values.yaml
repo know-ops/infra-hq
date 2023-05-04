@@ -7,7 +7,7 @@ spec:
     server: https://kubernetes.default.svc
 
 argocd:
-  targetRevision: 5.29.1
+  targetRevision: 5.31.1
 
 argocdapps:
   targetRevision: 1.0.0
