@@ -1,0 +1,61 @@
+applications:
+- name: cd-argocd-objects
+  project: cd-argocd
+  sources:
+  - repoURL: 'https://argoproj.github.io/argo-helm'
+    chart: argocd-apps
+    targetRevision: 1.0.0
+    helm:
+      valueFiles:
+      - $values/helm/argo/argocd-apps/appprojects.yaml
+      - $values/helm/argo/argocd-apps/applications.yaml
+  - repoURL: git@github.com:know-ops/infra-hq.git
+    targetRevision: feature/initial_version
+    ref: values
+  destination:
+    namespace: tools
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+
+- name: cert-manager
+  project: svc-infra
+  sources:
+  - repoURL: 'https://charts.jetstack.io'
+    chart: cert-manager
+    targetRevision: v1.11.1
+    helm:
+      valueFiles:
+      - $values/helm/jetstack/cert-manager/values.yaml
+  - repoURL: git@github.com:know-ops/infra-hq.git
+    targetRevision: feature/initial_version
+    ref: values
+  destination:
+    namespace: cert-manager
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+
+- name: cd-argocd
+  project: svc-tools
+  sources:
+  - repoURL: 'https://argoproj.github.io/argo-helm'
+    chart: argo-cd
+    targetRevision: 5.31.1
+    helm:
+      valueFiles:
+      - $values/helm/argo/argo-cd/values.yaml
+  - repoURL: git@github.com:know-ops/infra-hq.git
+    targetRevision: feature/initial_version
+    ref: values
+  destination:
+    namespace: tools
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
