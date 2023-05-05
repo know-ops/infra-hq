@@ -1,0 +1,8 @@
+global:
+  edition: ce
+
+  hosts:
+    domain: hq.know-ops.com
+
+    ingress:
+      path: /tools/dso/gitlab

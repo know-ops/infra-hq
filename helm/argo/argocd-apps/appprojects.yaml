@@ -21,18 +21,33 @@
     destinations:
     - namespace: cert-manager
       server: https://kubernetes.default.svc
+    - namespace: tools
+      server: https://kubernetes.default.svc
     clusterResourceWhitelist:
     - group: '*'
       kind: '*'
 
   - name: svc-tools
     namespace: tools
-    description: Tool Services, i.e. CD, CI, Git, etc.
+    description: Infrastructure Services, i.e. cert-manager, etc.
     sourceRepos:
     - git@github.com:know-ops/infra-hq.git
     - https://argoproj.github.io/argo-helm
     destinations:
     - namespace: tools
+      server: https://kubernetes.default.svc
+    clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+
+  - name: dso-tools
+    namespace: tools
+    description: Tool Services, i.e. Gitlab, etc.
+    sourceRepos:
+    - git@github.com:know-ops/infra-hq.git
+    - https://charts.gitlab.io/
+    destinations:
+    - namespace: dso
       server: https://kubernetes.default.svc
     clusterResourceWhitelist:
     - group: '*'
