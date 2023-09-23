@@ -19,6 +19,7 @@
     - git@github.com:know-ops/infra-hq.git
     - https://charts.jetstack.io
     - https://kubernetes-sigs.github.io/metrics-server
+    - https://charts.fairwinds.com/stable
     destinations:
     - namespace: cert-manager
       server: https://kubernetes.default.svc
