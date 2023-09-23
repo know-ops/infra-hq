@@ -1,5 +1,5 @@
 dashboard:
-  basePath: /tools/ob/goldilocks/
+  basePath: '/tools/ob/goldilocks/'
 
   replicaCount: 1
 
