@@ -18,8 +18,11 @@
     sourceRepos:
     - git@github.com:know-ops/infra-hq.git
     - https://charts.jetstack.io
+    - https://kubernetes-sigs.github.io/metrics-server
     destinations:
     - namespace: cert-manager
+      server: https://kubernetes.default.svc
+    - namespace: metrics-server
       server: https://kubernetes.default.svc
     - namespace: tools
       server: https://kubernetes.default.svc

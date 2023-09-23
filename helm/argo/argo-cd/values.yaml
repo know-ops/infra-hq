@@ -74,6 +74,9 @@
         - type: helm
           url: https://charts.gitlab.io
           name: gitlab
+        - type: helm
+          url: https://kubernetes-sigs.github.io/metrics-server
+          name: metrics-server
 
     rbacConfig:
       policy.default: 'role:readonly'

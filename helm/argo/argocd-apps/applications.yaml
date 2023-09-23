@@ -59,3 +59,17 @@ applications:
     automated:
       selfHeal: true
       prune: true
+
+- name: metrics-server
+  project: svc-infra
+  source:
+    repoURL: 'https://kubernetes-sigs.github.io/metrics-server'
+    chart: metrics-server
+    targetRevision: 3.11.0
+  destination:
+    namespace: metrics-server
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
