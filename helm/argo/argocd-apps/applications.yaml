@@ -62,10 +62,16 @@ applications:
 
 - name: metrics-server
   project: svc-infra
-  source:
-    repoURL: 'https://kubernetes-sigs.github.io/metrics-server'
+  sources:
+  - repoURL: 'https://kubernetes-sigs.github.io/metrics-server'
     chart: metrics-server
     targetRevision: 3.11.0
+    helm:
+      valueFiles:
+      - $values/helm/metrics-server/metrics-server/values.yaml
+  - repoURL: git@github.com:know-ops/infra-hq.git
+    targetRevision: feature/initial_version
+    ref: values
   destination:
     namespace: metrics-server
     server: https://kubernetes.default.svc
