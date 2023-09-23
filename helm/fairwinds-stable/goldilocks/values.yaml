@@ -1,11 +1,10 @@
 dashboard:
+  basePath: /tools/ob/goldilocks/
 
   replicaCount: 1
 
   ingress:
     enabled: true
-
-    basePath: /tools/ob/goldilocks/
 
     annotations:
       kubernetes.io/ingress.class: nginx
