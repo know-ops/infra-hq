@@ -19,6 +19,9 @@ applications:
     automated:
       selfHeal: true
       prune: true
+    managedNamespaceMetadata:
+      labels:
+        goldilocks.fairwinds.com/enabled: true
 
 - name: cert-manager
   project: svc-infra
@@ -39,6 +42,9 @@ applications:
     automated:
       selfHeal: true
       prune: true
+    managedNamespaceMetadata:
+      labels:
+        goldilocks.fairwinds.com/enabled: true
 
 - name: cd-argocd
   project: svc-tools
@@ -79,8 +85,9 @@ applications:
     automated:
       selfHeal: true
       prune: true
-    syncOptions:    # Sync options which modifies sync behavior
-    - CreateNamespace=true # Namespace Auto-Creation ensures that namespace specified as the application destination exists in the destination cluster.
+    managedNamespaceMetadata:
+      labels:
+        goldilocks.fairwinds.com/enabled: true
 
 - name: vpa
   project: svc-infra
@@ -95,8 +102,9 @@ applications:
     automated:
       selfHeal: true
       prune: true
-    syncOptions:    # Sync options which modifies sync behavior
-    - CreateNamespace=true # Namespace Auto-Creation ensures that namespace specified as the application destination exists in the destination cluster.
+    managedNamespaceMetadata:
+      labels:
+        goldilocks.fairwinds.com/enabled: true
 
 - name: goldilocks
   project: svc-tools
