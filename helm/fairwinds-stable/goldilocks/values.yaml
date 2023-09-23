@@ -1,5 +1,7 @@
 dashboard:
-  basePath: /tools/ob/goldilocks/
+  basePath: /
+
+  replicaCount: 1
 
   ingress:
     enabled: true
@@ -11,7 +13,7 @@ dashboard:
     hosts:
     - host: hq.know-ops.com
       paths:
-      - path: /tools/ob/goldilocks
+      - path: /
         type: ImplementationSpecific
 
     tls:
