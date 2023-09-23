@@ -13,8 +13,8 @@ dashboard:
     hosts:
     - host: hq.know-ops.com
       paths:
-      - path: /
-        type: ImplementationSpecific
+      - path: /tools/ob/goldilocks
+        type: Path
 
     tls:
     - hosts:
