@@ -1,5 +1,5 @@
 dashboard:
-  basePath: /tools/ob/goldilocks/
+  basePath: /goldilocks
 
   replicaCount: 1
 
@@ -13,7 +13,7 @@ dashboard:
     hosts:
     - host: hq.know-ops.com
       paths:
-      - path: /tools/ob/goldilocks
+      - path: /goldilocks
         type: Prefix
 
     tls:
