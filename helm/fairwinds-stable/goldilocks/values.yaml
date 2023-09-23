@@ -14,7 +14,7 @@ dashboard:
     - host: hq.know-ops.com
       paths:
       - path: /tools/ob/goldilocks
-        type: Path
+        type: Prefix
 
     tls:
     - hosts:
