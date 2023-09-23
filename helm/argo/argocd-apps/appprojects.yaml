@@ -26,6 +26,8 @@
       server: https://kubernetes.default.svc
     - namespace: metrics-server
       server: https://kubernetes.default.svc
+    - namespace: vpa
+      server: https://kubernetes.default.svc
     - namespace: tools
       server: https://kubernetes.default.svc
     clusterResourceWhitelist:

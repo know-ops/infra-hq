@@ -77,6 +77,9 @@
         - type: helm
           url: https://kubernetes-sigs.github.io/metrics-server
           name: metrics-server
+        - type: helm
+          url: https://charts.fairwinds.com/stable
+          name: fairwinds-stable
 
     rbacConfig:
       policy.default: 'role:readonly'

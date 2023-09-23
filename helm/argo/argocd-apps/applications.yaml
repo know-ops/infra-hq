@@ -81,3 +81,19 @@ applications:
       prune: true
     syncOptions:    # Sync options which modifies sync behavior
     - CreateNamespace=true # Namespace Auto-Creation ensures that namespace specified as the application destination exists in the destination cluster.
+
+- name: vpa
+  project: svc-infra
+  source:
+    repoURL: 'https://charts.fairwinds.com/stable'
+    chart: vpa
+    targetRevision: 3.0.1
+  destination:
+    namespace: vpa
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+    syncOptions:    # Sync options which modifies sync behavior
+    - CreateNamespace=true # Namespace Auto-Creation ensures that namespace specified as the application destination exists in the destination cluster.
