@@ -98,7 +98,7 @@ applications:
     syncOptions:    # Sync options which modifies sync behavior
     - CreateNamespace=true # Namespace Auto-Creation ensures that namespace specified as the application destination exists in the destination cluster.
 
-- name: vpa
+- name: goldilocks
   project: svc-tools
   sources:
   - repoURL: 'https://charts.fairwinds.com/stable'
