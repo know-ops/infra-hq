@@ -1,0 +1,21 @@
+dashboard:
+  basePath: /tools/ob/goldilocks
+
+  ingress:
+    enabled: true
+
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      kubernetes.io/tls-acme: "true"
+    
+    hosts:
+    - host: hq.know-ops.com
+      paths:
+      - path: /tools/ob/goldilocks
+        type: ImplementationSpecific
+
+    tls:
+    - hosts:
+      - hq.know-ops.com
+      secretName: goldilocks-tls
+
