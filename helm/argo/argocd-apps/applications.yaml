@@ -97,3 +97,23 @@ applications:
       prune: true
     syncOptions:    # Sync options which modifies sync behavior
     - CreateNamespace=true # Namespace Auto-Creation ensures that namespace specified as the application destination exists in the destination cluster.
+
+- name: vpa
+  project: svc-tools
+  sources:
+  - repoURL: 'https://charts.fairwinds.com/stable'
+    chart: goldilocks
+    targetRevision: 7.2.0
+    helm:
+      valueFiles:
+      - $values/helm/fairwinds-stable/goldilocks/values.yaml
+  - repoURL: git@github.com:know-ops/infra-hq.git
+    targetRevision: feature/initial_version
+    ref: values
+  destination:
+    namespace: tools
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true

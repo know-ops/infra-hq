@@ -5,6 +5,7 @@
     sourceRepos:
     - git@github.com:know-ops/infra-hq.git
     - https://argoproj.github.io/argo-helm
+    - https://charts.fairwinds.com/stable
     destinations:
     - namespace: tools
       server: https://kubernetes.default.svc
