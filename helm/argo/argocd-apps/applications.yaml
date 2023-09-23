@@ -25,7 +25,7 @@ applications:
   sources:
   - repoURL: 'https://charts.jetstack.io'
     chart: cert-manager
-    targetRevision: v1.12.3
+    targetRevision: v1.13.0
     helm:
       valueFiles:
       - $values/helm/jetstack/cert-manager/values.yaml
@@ -45,7 +45,7 @@ applications:
   sources:
   - repoURL: 'https://argoproj.github.io/argo-helm'
     chart: argo-cd
-    targetRevision: 5.43.3
+    targetRevision: 5.46.7
     helm:
       valueFiles:
       - $values/helm/argo/argo-cd/values.yaml
