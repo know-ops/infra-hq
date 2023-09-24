@@ -106,7 +106,7 @@ applications:
       labels:
         goldilocks.fairwinds.com/enabled: 'true'
 
-- name: goldilocks
+- name: ob-goldilocks
   project: svc-tools
   sources:
   - repoURL: 'https://charts.fairwinds.com/stable'
