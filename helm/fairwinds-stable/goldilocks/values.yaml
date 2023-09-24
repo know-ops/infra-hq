@@ -19,7 +19,7 @@ dashboard:
         type: ImplementationSpecific
       - path: /tools/ob(/|$)(.*)
         type: ImplementationSpecific
-      - path: /($)(static/images/.*)
+      - path: /(.*|$)(static/images/.*)
         type: ImplementationSpecific
 
     tls:
