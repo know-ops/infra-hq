@@ -9,12 +9,16 @@ dashboard:
     annotations:
       kubernetes.io/ingress.class: nginx
       kubernetes.io/tls-acme: "true"
+      nginx.ingress.kubernetes.io/use-regex: "true"
+      nginx.ingress.kubernetes.io/rewrite-target: /tools/ob/goldilocks/$2
     
     hosts:
     - host: hq.know-ops.com
       paths:
-      - path: /tools/ob/goldilocks
-        type: Prefix
+      - path: /tools/ob/goldilocks(/|$)(.*)
+        type: ImplementationSpecific
+      - path: /tools/ob(/|$)(.*)
+        type: ImplementationSpecific
 
     tls:
     - hosts:
